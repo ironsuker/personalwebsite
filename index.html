@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI & Data Portfolio | AI 与大数据作品集</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      color: #eef4ff;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(74, 144, 255, 0.30), transparent 30%),
+        radial-gradient(circle at 88% 12%, rgba(177, 97, 255, 0.26), transparent 32%),
+        radial-gradient(circle at 60% 92%, rgba(0, 255, 209, 0.15), transparent 34%),
+        linear-gradient(135deg, #070b18 0%, #0d1022 46%, #12091f 100%);
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    .cn { display: none; }
+    body.lang-cn .en { display: none; }
+    body.lang-cn .cn { display: inline; }
+    body.lang-cn .cn.block { display: block; }
+    body.lang-cn .cn.flex { display: flex; }
+    body.lang-cn .cn.grid { display: grid; }
+
+    .nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(18px); background: rgba(7, 11, 24, 0.72); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .nav-inner { max-width: 1120px; margin: 0 auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .brand { font-weight: 900; letter-spacing: 0.5px; display: flex; align-items: center; gap: 9px; }
+    .brand-dot { width: 12px; height: 12px; border-radius: 50%; background: linear-gradient(135deg,#00ffd1,#7a5cff); box-shadow: 0 0 18px rgba(0,255,209,0.8); }
+    .nav-links { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; align-items: center; }
+    .nav-links a, .lang-toggle { padding: 8px 11px; border-radius: 999px; color: #b9c7e6; font-size: 14px; transition: .18s; border: 0; background: transparent; cursor: pointer; font-weight: 800; }
+    .lang-toggle { color: #fff; background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.12); }
+    .nav-links a:hover, .lang-toggle:hover { color: #fff; background: rgba(255,255,255,0.09); }
+
+    .container { max-width: 1120px; margin: 0 auto; padding: 34px 20px 70px; }
+    .hero { min-height: 76vh; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 34px; }
+    .tag { display: inline-flex; align-items: center; gap: 8px; padding: 9px 13px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); color: #b7c6e8; font-weight: 700; margin-bottom: 18px; }
+    .hero h1 { margin: 0; font-size: clamp(44px, 7vw, 82px); line-height: .98; letter-spacing: -3px; }
+    .gradient-text { background: linear-gradient(90deg,#fff,#8bdcff,#c69cff,#00ffd1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p { margin: 22px 0 0; color: #b9c7e6; font-size: 19px; line-height: 1.75; max-width: 680px; }
+    .buttons { display: flex; gap: 13px; flex-wrap: wrap; margin-top: 28px; }
+    .btn { border: 1px solid rgba(255,255,255,.13); border-radius: 16px; padding: 13px 17px; font-weight: 900; background: rgba(255,255,255,.08); color: #fff; transition: .18s; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0,0,0,.26); }
+    .btn.primary { background: linear-gradient(135deg,#2f6fed,#7a5cff); border: 0; }
+    .btn.green { background: linear-gradient(135deg,#00c2a8,#00a6ff); border: 0; }
+
+    .hero-card { position: relative; min-height: 420px; border-radius: 34px; padding: 24px; overflow: hidden; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.13); box-shadow: 0 26px 80px rgba(0,0,0,.28); }
+    .hero-card::before { content: ""; position: absolute; inset: -60px; background: radial-gradient(circle at 35% 20%, rgba(0,255,209,.35), transparent 25%), radial-gradient(circle at 75% 52%, rgba(122,92,255,.42), transparent 32%), radial-gradient(circle at 20% 85%, rgba(47,111,237,.35), transparent 30%); filter: blur(8px); }
+    .terminal { position: relative; z-index: 1; height: 100%; min-height: 360px; border-radius: 24px; padding: 20px; background: rgba(2,7,20,.72); border: 1px solid rgba(255,255,255,.13); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; color: #d8e8ff; }
+    .dots { display: flex; gap: 7px; margin-bottom: 18px; }
+    .dots span { width: 11px; height: 11px; border-radius: 50%; display: block; }
+    .dots span:nth-child(1) { background: #ff5f57; } .dots span:nth-child(2) { background: #ffbd2e; } .dots span:nth-child(3) { background: #28c840; }
+    .code-line { margin: 12px 0; color: #9fb5dc; }
+    .code-line b { color: #00ffd1; } .code-line em { color: #c69cff; font-style: normal; } .code-line strong { color: #ffd166; }
+
+    section { padding: 72px 0 10px; }
+    .section-title { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 24px; }
+    .section-title h2 { margin: 0; font-size: clamp(28px, 4vw, 44px); letter-spacing: -1px; }
+    .section-title p { margin: 0; color: #9fb0d2; max-width: 560px; line-height: 1.65; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { border-radius: 26px; padding: 20px; background: rgba(255,255,255,.075); border: 1px solid rgba(255,255,255,.12); box-shadow: 0 20px 45px rgba(0,0,0,.16); transition: .18s; }
+    .card:hover { transform: translateY(-4px); background: rgba(255,255,255,.105); }
+    .project-icon { width: 52px; height: 52px; border-radius: 18px; display: grid; place-items: center; font-size: 26px; background: linear-gradient(135deg, rgba(47,111,237,.9), rgba(122,92,255,.9)); margin-bottom: 16px; }
+    .card h3 { margin: 0 0 10px; font-size: 21px; }
+    .card p { margin: 0; color: #b4c2e0; line-height: 1.68; }
+    .meta { display: flex; gap: 8px; flex-wrap: wrap; margin: 15px 0 18px; }
+    .chip { font-size: 12px; font-weight: 800; color: #cfe0ff; padding: 6px 9px; border-radius: 999px; background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.09); }
+    .project-link { display: inline-flex; align-items: center; gap: 7px; font-weight: 900; color: #8bdcff; }
+
+    .two-col { display: grid; grid-template-columns: .9fr 1.1fr; gap: 20px; align-items: stretch; }
+    .about-box { border-radius: 28px; padding: 24px; background: linear-gradient(135deg, rgba(47,111,237,.16), rgba(122,92,255,.12)); border: 1px solid rgba(255,255,255,.12); }
+    .about-box p { color: #c2d0ea; line-height: 1.75; font-size: 17px; margin: 0; }
+
+    .paper-card { display: grid; grid-template-columns: .95fr 1.05fr; gap: 18px; align-items: stretch; border-radius: 30px; padding: 22px; background: linear-gradient(135deg, rgba(255,209,102,.12), rgba(0,255,209,.10)), rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.13); box-shadow: 0 20px 45px rgba(0,0,0,.16); }
+    .paper-preview { min-height: 260px; border-radius: 24px; padding: 18px; background: rgba(2,7,20,.72); border: 1px solid rgba(255,255,255,.12); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; color: #d8e8ff; position: relative; overflow: hidden; }
+    .paper-preview::after { content: "MATH MODEL"; position: absolute; right: -12px; bottom: 10px; font-size: 44px; font-weight: 1000; color: rgba(255,255,255,.05); letter-spacing: -2px; }
+    .paper-line { margin: 10px 0; color: #9fb5dc; } .paper-line b { color: #ffd166; } .paper-line em { color: #00ffd1; font-style: normal; }
+    .paper-info h3 { margin: 0 0 10px; font-size: 26px; }
+    .paper-info p { margin: 0; color: #b4c2e0; line-height: 1.72; }
+
+    .skill-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .skill { padding: 17px; border-radius: 22px; background: rgba(255,255,255,.075); border: 1px solid rgba(255,255,255,.11); }
+    .skill b { display: block; margin-bottom: 6px; } .skill span { color: #aebedd; font-size: 14px; line-height: 1.55; }
+    .reflection { border-radius: 30px; padding: 28px; background: linear-gradient(135deg, rgba(0,255,209,.12), rgba(122,92,255,.14)), rgba(255,255,255,.065); border: 1px solid rgba(255,255,255,.13); }
+    .reflection p { margin: 0; color: #c5d4ef; line-height: 1.85; font-size: 18px; }
+    footer { margin-top: 60px; padding: 24px 0; border-top: 1px solid rgba(255,255,255,.1); color: #8798bb; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+    @media (max-width: 860px) {
+      .hero, .two-col, .paper-card { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .skill-list { grid-template-columns: 1fr; }
+      .section-title { align-items: flex-start; flex-direction: column; }
+      .nav-inner { align-items: flex-start; flex-direction: column; }
+      .nav-links { justify-content: flex-start; }
+      .hero { min-height: auto; padding-top: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#home"><span class="brand-dot"></span> AI & Data Lab</a>
+      <div class="nav-links">
+        <a href="#about"><span class="en">About</span><span class="cn">关于我</span></a>
+        <a href="#projects"><span class="en">Projects</span><span class="cn">项目</span></a>
+        <a href="#paper"><span class="en">Modeling Paper</span><span class="cn">建模论文</span></a>
+        <a href="#skills"><span class="en">Skills</span><span class="cn">技能</span></a>
+        <a href="#reflection"><span class="en">Reflection</span><span class="cn">反思</span></a>
+        <a href="https://github.com/" target="_blank">GitHub ↗</a>
+        <button class="lang-toggle" onclick="toggleLang()">中 / EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" id="home">
+    <section class="hero">
+      <div>
+        <div class="tag"><span class="en">🚀 Personal AI Portfolio</span><span class="cn">🚀 个人 AI 作品集</span></div>
+        <h1><span class="gradient-text">AI & Data</span><br>Creative Lab</h1>
+        <p>
+          <span class="en">I use AI, data and code to turn ideas into interactive digital projects. This website collects my projects in web design, data analysis, recommendation systems, mathematical modeling and creative AI.</span>
+          <span class="cn">我用 AI、数据和代码，把想法变成可以互动的数字作品。本网站展示我的网页设计、数据分析、推荐系统、数学建模论文和生成式 AI 项目。</span>
+        </p>
+        <div class="buttons">
+          <a class="btn primary" href="#projects"><span class="en">View My Projects</span><span class="cn">查看项目</span></a>
+          <a class="btn" href="#paper"><span class="en">Modeling Paper</span><span class="cn">建模论文</span></a>
+          <a class="btn green" href="https://你的用户名.github.io/你的项目名/" target="_blank"><span class="en">Open My Project ↗</span><span class="cn">打开我的网页项目 ↗</span></a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="terminal">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="code-line"><b>student</b>.<em>name</em> = <strong>"Your Name"</strong></div>
+          <div class="code-line"><b>course</b> = <strong>"AI & Big Data"</strong></div>
+          <div class="code-line"><b>projects</b> = [</div>
+          <div class="code-line">&nbsp;&nbsp;<strong>"AI Music"</strong>,</div>
+          <div class="code-line">&nbsp;&nbsp;<strong>"Travel Map"</strong>,</div>
+          <div class="code-line">&nbsp;&nbsp;<strong>"Recommendation System"</strong>,</div>
+          <div class="code-line">&nbsp;&nbsp;<strong>"Mathematical Modeling Paper"</strong></div>
+          <div class="code-line">]</div>
+          <div class="code-line"><b>goal</b> = <strong>"Create useful digital products."</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-title">
+        <h2><span class="en">About Me</span><span class="cn">关于我</span></h2>
+        <p><span class="en">Use this section to introduce yourself and explain what you learned in this course.</span><span class="cn">在这里介绍自己，并说明你在 AI 与大数据课程中学到了什么。</span></p>
+      </div>
+      <div class="two-col">
+        <div class="about-box"><p><span class="en">Hi! I am a high school student learning AI and data analysis. In this course, I explored how AI can help us create music, design websites, analyze data, build games and make recommendation systems.</span><span class="cn">你好！我是一名正在学习 AI 与数据分析的高中生。在这门课程中，我探索了 AI 如何帮助我们创作音乐、设计网页、分析数据、制作游戏和构建推荐系统。</span></p></div>
+        <div class="about-box"><p><span class="en">I enjoy turning small ideas into interactive digital products. My current interests include artificial intelligence, creative coding, data visualization, mathematical modeling, web design and user experience.</span><span class="cn">我喜欢把小想法变成可以互动的数字作品。目前我感兴趣的方向包括人工智能、创意编程、数据可视化、数学建模、网页设计和用户体验。</span></p></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-title">
+        <h2><span class="en">Featured Projects</span><span class="cn">精选项目</span></h2>
+        <p><span class="en">Replace the titles, descriptions and links with your own projects. Links can jump to GitHub Pages, Replit, Framer, Notion or any public website.</span><span class="cn">把这里的标题、描述和链接替换成你自己的项目。链接可以跳转到 GitHub Pages、Replit、Framer、Notion 或其他公开网页。</span></p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="project-icon">🗺️</div>
+          <h3><span class="en">Macau Travel Map</span><span class="cn">澳门旅游互动地图</span></h3>
+          <p><span class="en">An interactive map that introduces places to visit in Macau. Users can click locations and read travel information.</span><span class="cn">一个介绍澳门景点的互动地图。用户可以点击不同地点，查看简短的旅游信息。</span></p>
+          <div class="meta"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">AI Assistant</span></div>
+          <a class="project-link" href="https://ironsuker.github.io/macau-map/" target="_blank"><span class="en">Open Project ↗</span><span class="cn">打开项目 ↗</span></a>
+        </article>
+        <article class="card">
+          <div class="project-icon">🎬</div>
+          <h3><span class="en">Netflix Recommendation System</span><span class="cn">Netflix 推荐系统</span></h3>
+          <p><span class="en">A simple recommendation system that suggests movies based on user preferences, such as genre, mood and watching time.</span><span class="cn">一个简单的推荐系统，根据用户选择的类型、心情和观看时间推荐电影。</span></p>
+          <div class="meta"><span class="chip">Dataset</span><span class="chip">Recommendation</span><span class="chip">JavaScript</span></div>
+          <a class="project-link" href="https://你的用户名.github.io/recommendation-system/" target="_blank"><span class="en">Open Project ↗</span><span class="cn">打开项目 ↗</span></a>
+        </article>
+        <article class="card">
+          <div class="project-icon">🎵</div>
+          <h3><span class="en">AI Music Project</span><span class="cn">AI 音乐生成项目</span></h3>
+          <p><span class="en">A creative project using AI tools to generate music from text prompts and explore how prompts affect style and mood.</span><span class="cn">一个使用 AI 工具根据文本提示生成音乐的创意项目，并探索提示词如何影响音乐风格和情绪。</span></p>
+          <div class="meta"><span class="chip">AI Music</span><span class="chip">Prompt Writing</span><span class="chip">Creativity</span></div>
+          <a class="project-link" href="https://你的用户名.github.io/ai-music/" target="_blank"><span class="en">Open Project ↗</span><span class="cn">打开项目 ↗</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section id="paper">
+      <div class="section-title">
+        <h2><span class="en">Mathematical Modeling Paper</span><span class="cn">数学建模论文</span></h2>
+        <p><span class="en">This section shows my modeling paper or research report. It can include the problem, model, data, results and conclusion.</span><span class="cn">这里展示我的数学建模论文或研究报告，可以包括问题背景、模型方法、数据处理、结果分析和结论。</span></p>
+      </div>
+      <div class="paper-card">
+        <div class="paper-preview">
+          <div class="paper-line"><b>Title</b>: <em>Optimization Model for Campus Resource Allocation</em></div>
+          <div class="paper-line"><b>Keywords</b>: data, model, simulation, decision</div>
+          <div class="paper-line"><b>Model</b>: scoring model + weighted evaluation</div>
+          <div class="paper-line"><b>Output</b>: tables, charts, recommendations</div>
+          <div class="paper-line"><b>Tools</b>: Excel / Python / AI Assistant</div>
+        </div>
+        <div class="paper-info">
+          <h3><span class="en">My Modeling Report</span><span class="cn">我的建模论文 / 报告</span></h3>
+          <p><span class="en">In this project, I used data and mathematical thinking to solve a real-world problem. I built a simple model, explained my assumptions, analyzed the results and presented recommendations.</span><span class="cn">在这个项目中，我尝试用数据和数学建模思维解决一个现实问题。我建立了一个简单模型，说明模型假设，分析结果，并给出建议。</span></p>
+          <div class="meta"><span class="chip">Mathematical Modeling</span><span class="chip">Data Analysis</span><span class="chip">Visualization</span><span class="chip">Research Writing</span></div>
+          <a class="project-link" href="https://你的用户名.github.io/modeling-paper/" target="_blank"><span class="en">Open Paper ↗</span><span class="cn">打开论文 ↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-title">
+        <h2><span class="en">Skills</span><span class="cn">技能</span></h2>
+        <p><span class="en">These tags show the skills I practiced in the AI & Big Data course.</span><span class="cn">这些标签展示我在 AI 与大数据课程中练习过的技能。</span></p>
+      </div>
+      <div class="skill-list">
+        <div class="skill"><b>🤖 <span class="en">AI Tools</span><span class="cn">AI 工具</span></b><span>ChatGPT, Gemini, Google Labs, AI website builders</span></div>
+        <div class="skill"><b>📊 <span class="en">Data Skills</span><span class="cn">数据技能</span></b><span><span class="en">Data cleaning, visualization, simple recommendation logic</span><span class="cn">数据清洗、可视化、简单推荐逻辑</span></span></div>
+        <div class="skill"><b>🧮 <span class="en">Modeling</span><span class="cn">数学建模</span></b><span><span class="en">Assumptions, variables, model building, result analysis</span><span class="cn">模型假设、变量设计、模型建立、结果分析</span></span></div>
+        <div class="skill"><b>💻 <span class="en">Web Design</span><span class="cn">网页设计</span></b><span>HTML, CSS, JavaScript, responsive layout</span></div>
+      </div>
+    </section>
+
+    <section id="reflection">
+      <div class="section-title">
+        <h2><span class="en">Reflection</span><span class="cn">学习反思</span></h2>
+        <p><span class="en">A good portfolio is not only a list of projects. It also explains what you learned.</span><span class="cn">好的作品集不只是项目列表，还要说明你从项目中学到了什么。</span></p>
+      </div>
+      <div class="reflection">
+        <p><span class="en">In this course, I learned that AI is not only a chatbot. AI can help me write code, design websites, analyze data, create music and improve my ideas. I also learned that a good digital project needs clear structure, useful data and a good user experience.</span><span class="cn">在这门课程中，我认识到 AI 不只是聊天机器人。AI 可以帮助我写代码、设计网页、分析数据、创作音乐并改进想法。我也学到，一个好的数字项目需要清晰的结构、有价值的数据和良好的用户体验。</span></p>
+      </div>
+    </section>
+
+    <footer>
+      <div>© 2026 Your Name · AI & Data Portfolio</div>
+      <div><span class="en">Built with HTML · Published by GitHub Pages</span><span class="cn">使用 HTML 制作 · 通过 GitHub Pages 发布</span></div>
+    </footer>
+  </main>
+
+  <script>
+    function toggleLang() {
+      document.body.classList.toggle('lang-cn');
+    }
+  </script>
+</body>
+</html>
